@@ -1,0 +1,1896 @@
+{
+  "info": {
+    "version": "1.0",
+    "title": "YRR API"
+  },
+  "host": "localhost:4000",
+  "definitions": {
+    "User": {
+      "description": "Utilisateur authentifié",
+      "example": {
+        "id": "67f123456789abcdef123456",
+        "username": "mirko"
+      },
+      "properties": {
+        "id": {
+          "description": "ID utilisateur",
+          "type": "string"
+        },
+        "username": {
+          "description": "Nom d'utilisateur",
+          "type": "string"
+        }
+      },
+      "title": "User",
+      "type": "object"
+    },
+    "AuthSuccessResponse": {
+      "description": "Réponse de succès après inscription ou connexion",
+      "example": {
+        "message": "Connexion réussie",
+        "token": "eyJhbGciOiJIUzI1NiJ9...",
+        "user": {
+          "id": "67f123456789abcdef123456",
+          "username": "mirko"
+        }
+      },
+      "properties": {
+        "message": {
+          "description": "Message de succès",
+          "type": "string"
+        },
+        "token": {
+          "description": "Jeton d'authentification",
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User",
+          "description": "Utilisateur"
+        }
+      },
+      "title": "AuthSuccessResponse",
+      "type": "object"
+    },
+    "Error": {
+      "description": "Réponse d'erreur",
+      "properties": {
+        "error": {
+          "description": "Message d'erreur",
+          "type": "string"
+        }
+      },
+      "title": "Error",
+      "type": "object"
+    },
+    "ErrorWithDetails": {
+      "description": "Réponse d'erreur avec détails",
+      "example": {
+        "details": "some internal error",
+        "error": "Erreur serveur lors de l'inscription"
+      },
+      "properties": {
+        "details": {
+          "description": "Détails",
+          "type": "string"
+        },
+        "error": {
+          "description": "Message d'erreur",
+          "type": "string"
+        }
+      },
+      "title": "ErrorWithDetails",
+      "type": "object"
+    },
+    "LoginInput": {
+      "description": "Données requises pour connecter un utilisateur",
+      "example": {
+        "password": "123123",
+        "username": "mirko"
+      },
+      "properties": {
+        "password": {
+          "description": "Mot de passe",
+          "type": "string"
+        },
+        "username": {
+          "description": "Nom d'utilisateur",
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "username"
+      ],
+      "title": "LoginInput",
+      "type": "object"
+    },
+    "MessageResponse": {
+      "description": "Réponse simple avec message",
+      "example": {
+        "message": "API fonctionnelle"
+      },
+      "properties": {
+        "message": {
+          "description": "Message",
+          "type": "string"
+        }
+      },
+      "title": "MessageResponse",
+      "type": "object"
+    },
+    "RegisterInput": {
+      "description": "Données requises pour inscrire un utilisateur",
+      "example": {
+        "password": "123123",
+        "username": "mirko"
+      },
+      "properties": {
+        "password": {
+          "description": "Mot de passe",
+          "type": "string"
+        },
+        "username": {
+          "description": "Nom d'utilisateur",
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "username"
+      ],
+      "title": "RegisterInput",
+      "type": "object"
+    },
+    "Boat": {
+      "description": "Représentation d'un bateau",
+      "example": {
+        "NomBarreur": "Mirko Brlek",
+        "classe": "Laser",
+        "id": "67f123456789abcdef123456",
+        "noVoile": "QC123",
+        "nom": "Le Vent Rapide"
+      },
+      "properties": {
+        "classe": {
+          "description": "Classe du bateau",
+          "type": "string"
+        },
+        "id": {
+          "description": "ID du bateau",
+          "type": "string"
+        },
+        "noVoile": {
+          "description": "Numéro de voile",
+          "type": "string"
+        },
+        "nom": {
+          "description": "Nom du bateau",
+          "type": "string"
+        },
+        "nomBarreur": {
+          "description": "Nom du barreur",
+          "type": "string"
+        }
+      },
+      "title": "Boat",
+      "type": "object"
+    },
+    "BoatCreateResponse": {
+      "description": "Réponse après création d'un bateau",
+      "example": {
+        "id": "67f123456789abcdef123456",
+        "message": "Boat added"
+      },
+      "properties": {
+        "id": {
+          "description": "ID du bateau créé",
+          "type": "string"
+        },
+        "message": {
+          "description": "Message de succès",
+          "type": "string"
+        }
+      },
+      "title": "BoatCreateResponse",
+      "type": "object"
+    },
+    "BoatInput": {
+      "description": "Données requises pour créer ou modifier un bateau",
+      "example": {
+        "classeBateau": "Laser",
+        "nomBarreur": "Mirko Brlek",
+        "nomBateau": "Le Vent Rapide",
+        "numeroVoile": "QC123"
+      },
+      "properties": {
+        "classeBateau": {
+          "description": "Classe du bateau",
+          "type": "string"
+        },
+        "nomBarreur": {
+          "description": "Nom du barreur",
+          "type": "string"
+        },
+        "nomBateau": {
+          "description": "Nom du bateau",
+          "type": "string"
+        },
+        "numeroVoile": {
+          "description": "Numéro de voile",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nomBarreur",
+        "classeBateau",
+        "numeroVoile",
+        "nomBateau"
+      ],
+      "title": "BoatInput",
+      "type": "object"
+    },
+    "Participant": {
+      "description": "Participant inscrit à une course",
+      "properties": {
+        "boat_class": {
+          "description": "Classe du bateau",
+          "type": "string"
+        },
+        "boat_id": {
+          "description": "ID du bateau",
+          "type": "string"
+        },
+        "boat_name": {
+          "description": "Nom du bateau",
+          "type": "string"
+        },
+        "helm_name": {
+          "description": "Nom du barreur",
+          "type": "string"
+        },
+        "id": {
+          "description": "ID du participant",
+          "type": "integer"
+        },
+        "inserted_at": {
+          "description": "Date d'ajout",
+          "type": "string"
+        },
+        "points": {
+          "description": "Points",
+          "type": "integer"
+        },
+        "position": {
+          "description": "Position",
+          "type": "integer"
+        },
+        "result": {
+          "description": "Résultat",
+          "type": "string"
+        },
+        "sail_number": {
+          "description": "Numéro de voile",
+          "type": "string"
+        }
+      },
+      "title": "Participant",
+      "type": "object"
+    },
+    "ParticipantAddResponse": {
+      "description": "Réponse après ajout d'un participant",
+      "properties": {
+        "message": {
+          "description": "Message",
+          "type": "string"
+        },
+        "participant": {
+          "$ref": "#/definitions/Participant",
+          "description": "Participant ajouté"
+        },
+        "race_id": {
+          "description": "ID de la course",
+          "type": "string"
+        }
+      },
+      "title": "ParticipantAddResponse",
+      "type": "object"
+    },
+    "ParticipantInput": {
+      "description": "Données pour ajouter un participant à une course",
+      "properties": {
+        "boat_class": {
+          "description": "Classe du bateau",
+          "type": "string"
+        },
+        "boat_id": {
+          "description": "ID du bateau",
+          "type": "string"
+        },
+        "boat_name": {
+          "description": "Nom du bateau",
+          "type": "string"
+        },
+        "helm_name": {
+          "description": "Nom du barreur",
+          "type": "string"
+        },
+        "race_id": {
+          "description": "ID de la course",
+          "type": "string"
+        },
+        "sail_number": {
+          "description": "Numéro de voile",
+          "type": "string"
+        }
+      },
+      "required": [
+        "helm_name",
+        "boat_class",
+        "sail_number",
+        "boat_name",
+        "boat_id",
+        "race_id"
+      ],
+      "title": "ParticipantInput",
+      "type": "object"
+    },
+    "Race": {
+      "description": "Représentation d'une course",
+      "properties": {
+        "class": {
+          "description": "Classe",
+          "type": "string"
+        },
+        "course": {
+          "description": "Parcours",
+          "type": "string"
+        },
+        "date": {
+          "description": "Date",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        },
+        "finished": {
+          "description": "Course terminée",
+          "type": "boolean"
+        },
+        "id": {
+          "description": "ID de la course",
+          "type": "string"
+        },
+        "name": {
+          "description": "Nom de la course",
+          "type": "string"
+        },
+        "participants": {
+          "description": "Participants",
+          "items": {
+            "$ref": "#/definitions/Participant"
+          },
+          "type": "array"
+        },
+        "start_time": {
+          "description": "Heure de départ",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type de course",
+          "type": "string"
+        }
+      },
+      "title": "Race",
+      "type": "object"
+    },
+    "RaceCreateResponse": {
+      "description": "Réponse après création d'une course",
+      "properties": {
+        "id": {
+          "description": "ID de la course",
+          "type": "string"
+        },
+        "message": {
+          "description": "Message",
+          "type": "string"
+        }
+      },
+      "title": "RaceCreateResponse",
+      "type": "object"
+    },
+    "RaceFinishedInput": {
+      "description": "État terminé ou non",
+      "properties": {
+        "finished": {
+          "description": "true si la course est terminée",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "finished"
+      ],
+      "title": "RaceFinishedInput",
+      "type": "object"
+    },
+    "RaceInput": {
+      "description": "Données pour créer ou modifier une course",
+      "example": {
+        "class": "Laser",
+        "course": "Triangle",
+        "date": "2026-04-30",
+        "description": "Course d'entraînement",
+        "name": "Course du samedi",
+        "start_time": "13:00",
+        "type": "OD"
+      },
+      "properties": {
+        "class": {
+          "description": "Classe",
+          "type": "string"
+        },
+        "course": {
+          "description": "Parcours",
+          "type": "string"
+        },
+        "date": {
+          "description": "Date",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        },
+        "name": {
+          "description": "Nom de la course",
+          "type": "string"
+        },
+        "start_time": {
+          "description": "Heure de départ",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type de course",
+          "type": "string"
+        }
+      },
+      "required": [
+        "date",
+        "name"
+      ],
+      "title": "RaceInput",
+      "type": "object"
+    },
+    "RaceResultsInput": {
+      "description": "Résultats complets d'une course",
+      "properties": {
+        "participants": {
+          "description": "Liste des participants",
+          "items": {
+            "$ref": "#/definitions/Participant"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "participants"
+      ],
+      "title": "RaceResultsInput",
+      "type": "object"
+    },
+    "SerieParticipant": {
+      "description": "Participant inscrit à une série",
+      "properties": {
+        "boat_class": {
+          "description": "Classe du bateau",
+          "type": "string"
+        },
+        "boat_id": {
+          "description": "ID du bateau",
+          "type": "string"
+        },
+        "boat_name": {
+          "description": "Nom du bateau",
+          "type": "string"
+        },
+        "helm_name": {
+          "description": "Nom du barreur",
+          "type": "string"
+        },
+        "inserted_at": {
+          "description": "Date d'ajout",
+          "type": "string"
+        },
+        "sail_number": {
+          "description": "Numéro de voile",
+          "type": "string"
+        }
+      },
+      "title": "SerieParticipant",
+      "type": "object"
+    },
+    "Serie": {
+      "description": "Représentation d'une série",
+      "example": {
+        "classe": "Laser",
+        "description": "Série du printemps",
+        "id": "67f123456789abcdef123456",
+        "nom": "Série printemps",
+        "nombreComptabilisees": 4,
+        "nombreCourses": 5,
+        "participants": [
+          {
+            "boat_class": "Laser",
+            "boat_id": "67faaaaaaaaaaaaaaaaaaaaa",
+            "boat_name": "Vent du Nord",
+            "helm_name": "Mirko",
+            "inserted_at": "2026-05-01T12:00:00Z",
+            "sail_number": "12345"
+          }
+        ],
+        "race_ids": [
+          "67f111111111111111111111",
+          "67f222222222222222222222"
+        ],
+        "type": "OD"
+      },
+      "properties": {
+        "classe": {
+          "description": "Classe",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        },
+        "id": {
+          "description": "ID de la série",
+          "type": "string"
+        },
+        "nom": {
+          "description": "Nom de la série",
+          "type": "string"
+        },
+        "nombreComptabilisees": {
+          "description": "Nombre de courses comptabilisées",
+          "type": "integer"
+        },
+        "nombreCourses": {
+          "description": "Nombre de courses",
+          "type": "integer"
+        },
+        "participants": {
+          "description": "Participants inscrits à la série",
+          "items": {
+            "$ref": "#/definitions/SerieParticipant"
+          },
+          "type": "array"
+        },
+        "race_ids": {
+          "description": "IDs des courses liées",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "Type de série",
+          "type": "string"
+        }
+      },
+      "title": "Serie",
+      "type": "object"
+    },
+    "SerieInput": {
+      "description": "Données pour créer une série",
+      "properties": {
+        "classe": {
+          "description": "Classe",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        },
+        "nom": {
+          "description": "Nom de la série",
+          "type": "string"
+        },
+        "nombreComptabilisees": {
+          "description": "Nombre comptabilisé",
+          "type": "integer"
+        },
+        "nombreCourses": {
+          "description": "Nombre de courses",
+          "type": "integer"
+        },
+        "type": {
+          "description": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nom"
+      ],
+      "title": "SerieInput",
+      "type": "object"
+    },
+    "SerieParticipantInput": {
+      "description": "Données pour inscrire un bateau à une série",
+      "properties": {
+        "boat_class": {
+          "description": "Classe du bateau",
+          "type": "string"
+        },
+        "boat_id": {
+          "description": "ID du bateau",
+          "type": "string"
+        },
+        "boat_name": {
+          "description": "Nom du bateau",
+          "type": "string"
+        },
+        "helm_name": {
+          "description": "Nom du barreur",
+          "type": "string"
+        },
+        "sail_number": {
+          "description": "Numéro de voile",
+          "type": "string"
+        },
+        "serie_id": {
+          "description": "ID de la série",
+          "type": "string"
+        }
+      },
+      "required": [
+        "helm_name",
+        "boat_class",
+        "sail_number",
+        "boat_name",
+        "boat_id",
+        "serie_id"
+      ],
+      "title": "SerieParticipantInput",
+      "type": "object"
+    },
+    "SerieRaceInput": {
+      "description": "Payload pour ajouter ou retirer une course d'une série",
+      "properties": {
+        "race_id": {
+          "description": "ID de la course",
+          "type": "string"
+        }
+      },
+      "required": [
+        "race_id"
+      ],
+      "title": "SerieRaceInput",
+      "type": "object"
+    },
+    "SerieUpdateInput": {
+      "description": "Données pour modifier une série",
+      "properties": {
+        "classe": {
+          "description": "Classe",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        },
+        "nom": {
+          "description": "Nom de la série",
+          "type": "string"
+        },
+        "nombreComptabilisees": {
+          "description": "Nombre comptabilisé",
+          "type": "integer"
+        },
+        "nombreCourses": {
+          "description": "Nombre de courses",
+          "type": "integer"
+        },
+        "race_ids": {
+          "description": "IDs des courses liées",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "Type",
+          "type": "string"
+        }
+      },
+      "title": "SerieUpdateInput",
+      "type": "object"
+    }
+  },
+  "swagger": "2.0",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/addboat": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Ajoute un nouveau bateau",
+        "operationId": "MyappWeb.BoatController.add_boat",
+        "parameters": [
+          {
+            "description": "Informations du bateau",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoatInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bateau ajouté",
+            "schema": {
+              "$ref": "#/definitions/BoatCreateResponse"
+            }
+          },
+          "400": {
+            "description": "Paramètres manquants",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Ajouter un bateau",
+        "tags": [
+          "Boat"
+        ]
+      }
+    },
+    "/addparticipanttorace": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Ajoute un bateau à une course non terminée",
+        "operationId": "MyappWeb.RaceController.add_participant_to_race",
+        "parameters": [
+          {
+            "description": "Participant à ajouter",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ParticipantInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant ajouté",
+            "schema": {
+              "$ref": "#/definitions/ParticipantAddResponse"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Participant déjà inscrit",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Ajouter un participant à une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/addparticipanttoserie": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Ajoute un bateau à une série et l'inscrit à toutes les courses de cette série",
+        "operationId": "MyappWeb.SeriesController.add_participant_to_serie",
+        "parameters": [
+          {
+            "description": "Participant à ajouter",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SerieParticipantInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant ajouté à la série"
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Série introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Participant déjà inscrit",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Inscrire un participant à une série",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/addrace": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Crée une nouvelle course",
+        "operationId": "MyappWeb.RaceController.add_race",
+        "parameters": [
+          {
+            "description": "Informations de la course",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RaceInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course ajoutée",
+            "schema": {
+              "$ref": "#/definitions/RaceCreateResponse"
+            }
+          },
+          "400": {
+            "description": "Paramètres manquants",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Ajouter une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/deleteboat/{boat_id}": {
+      "delete": {
+        "description": "Supprime un bateau et le retire des courses où il est inscrit",
+        "operationId": "MyappWeb.BoatController.delete_boat",
+        "parameters": [
+          {
+            "description": "ID du bateau",
+            "in": "path",
+            "name": "boat_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bateau supprimé"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Bateau introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Supprimer un bateau",
+        "tags": [
+          "Boat"
+        ]
+      }
+    },
+    "/deleterace/{race_id}": {
+      "delete": {
+        "description": "Supprime une course existante",
+        "operationId": "MyappWeb.RaceController.delete_race",
+        "parameters": [
+          {
+            "description": "ID de la course",
+            "in": "path",
+            "name": "race_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course supprimée"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Supprimer une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/getSeries": {
+      "get": {
+        "description": "Retourne la liste des séries",
+        "operationId": "MyappWeb.SeriesController.get_series",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liste des séries",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Serie"
+              },
+              "type": "array"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Lister les séries",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/getboats": {
+      "get": {
+        "description": "Retourne la liste des bateaux",
+        "operationId": "MyappWeb.BoatController.get_boats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liste des bateaux",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Boat"
+              },
+              "type": "array"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Lister les bateaux",
+        "tags": [
+          "Boat"
+        ]
+      }
+    },
+    "/getparticipantsforrace/{race_id}": {
+      "get": {
+        "description": "Retourne les participants d'une course",
+        "operationId": "MyappWeb.RaceController.get_participants_for_race",
+        "parameters": [
+          {
+            "description": "ID de la course",
+            "in": "path",
+            "name": "race_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des participants",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Participant"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Lister les participants d'une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/getraces": {
+      "get": {
+        "description": "Retourne la liste des courses",
+        "operationId": "MyappWeb.RaceController.get_races",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liste des courses",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Race"
+              },
+              "type": "array"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Lister les courses",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Connecte un utilisateur existant",
+        "operationId": "MyappWeb.UserController.login",
+        "parameters": [
+          {
+            "description": "Informations de connexion",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Connexion réussie",
+            "schema": {
+              "$ref": "#/definitions/AuthSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "Identifiants invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "summary": "Connexion",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/register": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Crée un nouvel utilisateur",
+        "operationId": "MyappWeb.UserController.register",
+        "parameters": [
+          {
+            "description": "Informations d'inscription",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Inscription réussie",
+            "schema": {
+              "$ref": "#/definitions/AuthSuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Utilisateur déjà existant",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/ErrorWithDetails"
+            }
+          }
+        },
+        "summary": "Inscription",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/removeparticipantfromrace/{race_id}/{participant_id}": {
+      "delete": {
+        "description": "Retire un participant d'une course non terminée",
+        "operationId": "MyappWeb.RaceController.remove_participant_from_race",
+        "parameters": [
+          {
+            "description": "ID de la course",
+            "in": "path",
+            "name": "race_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "ID du participant",
+            "in": "path",
+            "name": "participant_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant retiré"
+          },
+          "400": {
+            "description": "Paramètres invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course ou participant introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Retirer un participant d'une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/removeparticipantfromserie/{serie_id}/{boat_id}": {
+      "delete": {
+        "description": "Retire un bateau d'une série et de toutes les courses liées",
+        "operationId": "MyappWeb.SeriesController.remove_participant_from_serie",
+        "parameters": [
+          {
+            "description": "ID de la série",
+            "in": "path",
+            "name": "serie_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "ID du bateau",
+            "in": "path",
+            "name": "boat_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant retiré de la série"
+          },
+          "400": {
+            "description": "Données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Série ou participant introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Retirer un participant d'une série",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/series": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Crée une nouvelle série",
+        "operationId": "MyappWeb.SeriesController.create_serie",
+        "parameters": [
+          {
+            "description": "Informations de la série",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SerieInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Série créée",
+            "schema": {
+              "$ref": "#/definitions/Serie"
+            }
+          },
+          "400": {
+            "description": "Paramètre manquant",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Créer une série",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/series/{id}": {
+      "delete": {
+        "description": "Supprime une série existante",
+        "operationId": "MyappWeb.SeriesController.delete_serie",
+        "parameters": [
+          {
+            "description": "ID de la série",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Série supprimée"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Supprimer une série",
+        "tags": [
+          "Series"
+        ]
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Met à jour une série existante",
+        "operationId": "MyappWeb.SeriesController.update_serie",
+        "parameters": [
+          {
+            "description": "ID de la série",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Nouvelles informations de la série",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SerieUpdateInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Série mise à jour"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Modifier une série",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/series/{id}/addRace": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Ajoute l'ID d'une course dans race_ids",
+        "operationId": "MyappWeb.SeriesController.add_race_to_serie",
+        "parameters": [
+          {
+            "description": "ID de la série",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Course à ajouter",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SerieRaceInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course ajoutée à la série"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Série introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Ajouter une course à une série",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/series/{id}/removeRace": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Retire l'ID d'une course de race_ids",
+        "operationId": "MyappWeb.SeriesController.remove_race_from_serie",
+        "parameters": [
+          {
+            "description": "ID de la série",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Course à retirer",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SerieRaceInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course retirée de la série"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Série introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Retirer une course d'une série",
+        "tags": [
+          "Series"
+        ]
+      }
+    },
+    "/setracefinished/{race_id}": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Marque une course comme terminée ou non terminée",
+        "operationId": "MyappWeb.RaceController.set_race_finished",
+        "parameters": [
+          {
+            "description": "ID de la course",
+            "in": "path",
+            "name": "race_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "État terminé",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RaceFinishedInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "État mis à jour"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Changer l'état d'une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/updateboat/{boat_id}": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Met à jour un bateau existant",
+        "operationId": "MyappWeb.BoatController.update_boat",
+        "parameters": [
+          {
+            "description": "ID du bateau",
+            "in": "path",
+            "name": "boat_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Nouvelles informations du bateau",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BoatInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bateau modifié"
+          },
+          "400": {
+            "description": "Paramètres invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Bateau introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Modifier un bateau",
+        "tags": [
+          "Boat"
+        ]
+      }
+    },
+    "/updaterace/{race_id}": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Met à jour les informations d'une course",
+        "operationId": "MyappWeb.RaceController.update_race",
+        "parameters": [
+          {
+            "description": "ID de la course",
+            "in": "path",
+            "name": "race_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Informations mises à jour",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RaceInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course modifiée"
+          },
+          "400": {
+            "description": "ID invalide ou données invalides",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Modifier une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    },
+    "/updateraceresults/{race_id}": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Remplace la liste des participants/résultats d'une course",
+        "operationId": "MyappWeb.RaceController.update_race_results",
+        "parameters": [
+          {
+            "description": "ID de la course",
+            "in": "path",
+            "name": "race_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Participants et résultats",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RaceResultsInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Résultats mis à jour"
+          },
+          "400": {
+            "description": "ID invalide",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Course introuvable",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Erreur serveur",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Mettre à jour les résultats d'une course",
+        "tags": [
+          "Race"
+        ]
+      }
+    }
+  },
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "in": "header",
+      "name": "Authorization",
+      "type": "apiKey",
+      "description": "Entrer exactement: Bearer <token>"
+    }
+  }
+}

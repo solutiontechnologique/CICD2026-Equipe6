@@ -1,0 +1,49 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: tp5_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ./TP5_BACKEND
+      dockerfile: Dockerfile
+    container_name: tp5_backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      MIX_ENV: dev
+      PORT: 4000
+      MONGO_URL: mongodb://mongo:27017/my_database
+      MONGO_POOL_SIZE: 5
+    volumes:
+      - ./TP5_BACKEND:/app
+      - backend_deps:/app/deps
+      - backend_build:/app/_build
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./TP5_FRONTEND
+      dockerfile: Dockerfile
+    container_name: tp5_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./TP5_FRONTEND:/app
+      - frontend_node_modules:/app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
+  backend_deps:
+  backend_build:
+  frontend_node_modules:

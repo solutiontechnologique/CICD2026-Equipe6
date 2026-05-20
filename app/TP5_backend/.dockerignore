@@ -1,0 +1,15 @@
+_build
+deps
+.git
+.gitignore
+Dockerfile
+*.log
+
+myapp_dev.db
+myapp_dev.db-shm
+myapp_dev.db-wal
+
+.vscode
+.idea
+.DS_Store
+Thumbs.db

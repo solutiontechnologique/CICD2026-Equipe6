@@ -1,0 +1,94 @@
+<div style="padding: 2rem; font-family: Arial, sans-serif; line-height: 1.5;">
+  <h1>API YRR</h1>
+  
+  <p><strong>POST</strong> /api/register</p>
+   <pre>
+&#123;
+  "email": "test@test.com",
+  "password": "123456"
+&#125;
+  </pre>
+  <p><strong>POST</strong> /api/login</p>
+   <pre>
+&#123;
+  "email": "test@test.com",
+  "password": "123456"
+&#125;
+  </pre>
+  <p><strong>POST</strong> /api/addboat</p>
+   <pre>
+&#123;
+  "name": "Le Gargantuesque",
+  "sail_number": "123",
+  "class": "Laser",
+  "helm_name": "Dédé Fortin"
+&#125;
+  </pre>
+  <p><strong>GET</strong> /api/getboats</p>
+   <pre>http://localhost:4000/api/getboats</pre>
+  <p><strong>POST</strong> /api/addrace</p>
+   <pre>
+&#123;
+  "name": "Course du samedi",
+  "type": "OD",
+  "class": "Laser",
+  "date": "2026-04-25",
+  "start_time": "10:00",
+  "course": "Parcours A",
+  "description": "Course de démonstration"
+&#125;
+  </pre>
+  <p><strong>GET</strong> /api/getraces</p>
+   <pre>http://localhost:4000/api/getraces</pre>
+  <p><strong>PUT</strong> /api/updaterace/:race_id</p>
+   <pre>
+&#123;
+  "name": "Course modifiée",
+  "type": "H",
+  "class": "Open Handicap",
+  "date": "2026-04-26",
+  "start_time": "14:30",
+  "course": "Parcours B",
+  "description": "Nouvelle description"
+&#125;
+  </pre>
+  <p><strong>PUT</strong> /api/setracefinished/:race_id</p>
+   <pre>
+&#123;
+  "finished": true
+&#125;
+  </pre>
+  <p><strong>PUT</strong> /api/updateraceresults/:race_id</p>
+   <pre>
+&#123;
+  "participants": [
+    &#123;
+      "id": 1,
+      "boat_id": "boat_1",
+      "boat_name": "Le Gargantuesque",
+      "sail_number": "123",
+      "boat_class": "Laser",
+      "helm_name": "Dédé Fortin",
+      "result": "1",
+      "position": 1,
+      "points": 1
+    &#125;
+  ]
+&#125;
+  </pre>
+  <p><strong>POST</strong> /api/addparticipanttorace</p>
+   <pre>
+&#123;
+  "race_id": "RACE_ID",
+  "boat_id": "BOAT_ID",
+  "boat_name": "Le Gargantuesque",
+  "sail_number": "123",
+  "boat_class": "Laser",
+  "helm_name": "Dédé Fortin"
+&#125;
+  </pre>
+  <p><strong>GET</strong> /api/getparticipantsforrace/:race_id</p>
+   <pre>http://localhost:4000/api/getparticipantsforrace/RACE_ID</pre>
+  <p><strong>GET</strong> /api/getTest</p>
+   <pre>http://localhost:4000/api/getTest</pre>
+</div>
